@@ -6,6 +6,6 @@ metadata:
 spec:
   steps:
     - name: trigger-build
-      image: 'bitnami/kubectl:latest'
+      image: 'openshift/origin-cli:latest'
       script: |
         oc start-build myapp -n adhikaria-dev --wait

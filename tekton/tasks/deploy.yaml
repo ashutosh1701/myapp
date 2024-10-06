@@ -5,7 +5,7 @@ metadata:
   namespace: adhikaria-dev
 spec:
   steps:
-    - name: deploy
-      image: 'bitnami/kubectl:latest'
+    - name: helm-deploy
+      image: 'alpine/helm:3.5.4'
       script: |
-        oc rollout restart deployment myapp -n adhikaria-dev
+        helm upgrade --install myapp ./helm/myapp --namespace adhikaria-dev --set image.tag=latest
