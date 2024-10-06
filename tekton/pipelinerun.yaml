@@ -6,12 +6,3 @@ metadata:
 spec:
   pipelineRef:
     name: myapp-pipeline
-  workspaces:
-    - name: shared-workspace
-      persistentVolumeClaim:
-        claimName: myapp-pvc
-  params:
-    - name: git-url
-      value: "https://github.com/ashutosh1701/myapp.git"
-    - name: git-revision
-      value: "main"

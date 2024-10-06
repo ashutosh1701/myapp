@@ -4,10 +4,8 @@ metadata:
   name: deploy-task
   namespace: adhikaria-dev
 spec:
-  workspaces:
-    - name: source
   steps:
     - name: deploy
-      image: bitnami/kubectl:latest
+      image: 'bitnami/kubectl:latest'
       script: |
         oc rollout restart deployment myapp -n adhikaria-dev

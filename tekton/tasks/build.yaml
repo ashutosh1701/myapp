@@ -4,14 +4,8 @@ metadata:
   name: build-task
   namespace: adhikaria-dev
 spec:
-  workspaces:
-    - name: source
   steps:
-    - name: build
-      image: 'quay.io/buildah/stable:v1.19.6'
+    - name: trigger-build
+      image: 'bitnami/kubectl:latest'
       script: |
-        buildah bud -f $(workspaces.source.path)/Dockerfile -t image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest $(workspaces.source.path)
-    - name: push
-      image: 'quay.io/skopeo/stable:latest'
-      script: |
-        skopeo copy containers-storage:image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest docker://image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest
+        oc start-build myapp -n adhikaria-dev --wait
