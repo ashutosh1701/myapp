@@ -6,3 +6,7 @@ metadata:
 spec:
   pipelineRef:
     name: myapp-pipeline
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: myapp-pvc
