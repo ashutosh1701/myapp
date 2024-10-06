@@ -1,21 +1,29 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: {{ .Release.Name }}
-  labels:
-    app: {{ .Release.Name }}
+  name: myapp
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels:
-      app: {{ .Release.Name }}
+    app: myapp
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: myapp
     spec:
       containers:
-        - name: {{ .Release.Name }}
-          image: "image-registry.openshift-image-registry.svc:5000/adhikaria-dev/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: myapp
+          image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/myapp:latest"
           ports:
             - containerPort: 8080
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - myapp
+        from:
+          kind: ImageStreamTag
+          name: myapp:latest
+    - type: ConfigChange

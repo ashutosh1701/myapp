@@ -16,3 +16,9 @@ spec:
     to:
       kind: ImageStreamTag
       name: 'myapp:latest'
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+  runPolicy: Serial
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
