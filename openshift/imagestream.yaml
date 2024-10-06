@@ -10,12 +10,12 @@ spec:
     - name: latest
       from:
         kind: DockerImage
-        name: default-route-openshift-image-registry.apps.sandbox-m3.1530.p1.openshiftapps.com/adhikaria-dev/myapp:latest
+        name: image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest
       importPolicy:
         scheduled: true
     - name: previous
       from:
         kind: DockerImage
-        name: default-route-openshift-image-registry.apps.sandbox-m3.1530.p1.openshiftapps.com/adhikaria-dev/myapp:previous
+        name: image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:previous
       importPolicy:
         scheduled: true
