@@ -8,5 +8,5 @@ spec:
     - name: build
       image: 'quay.io/buildah/stable:v1.19.6'
       script: |
-        buildah bud -f /workspace/Dockerfile -t default-route-openshift-image-registry.apps.sandbox-m3.1530.p1.openshiftapps.com/adhikaria-dev/myapp:latest /workspace
-        buildah push default-route-openshift-image-registry.apps.sandbox-m3.1530.p1.openshiftapps.com/adhikaria-dev/myapp:latest
+        buildah bud -f /workspace/Dockerfile -t image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest /workspace
+        buildah push image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest
