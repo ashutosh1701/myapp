@@ -1,9 +1,8 @@
-# helm/myapp/templates/imagestream.yaml
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: myapp
-  namespace: {{ .Release.Namespace }}
+  namespace: adhikaria-dev
 spec:
   lookupPolicy:
     local: false
@@ -11,12 +10,12 @@ spec:
     - name: latest
       from:
         kind: DockerImage
-        name: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/myapp:latest
+        name: default-route-openshift-image-registry.apps.sandbox-m3.1530.p1.openshiftapps.com/adhikaria-dev/myapp:latest
       importPolicy:
         scheduled: true
     - name: previous
       from:
         kind: DockerImage
-        name: image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/myapp:previous
+        name: default-route-openshift-image-registry.apps.sandbox-m3.1530.p1.openshiftapps.com/adhikaria-dev/myapp:previous
       importPolicy:
         scheduled: true
