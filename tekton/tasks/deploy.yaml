@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-task
+  namespace: adhikaria-dev
+spec:
+  steps:
+    - name: deploy
+      image: bitnami/kubectl:latest
+      script: |
+        oc rollout restart deployment myapp -n adhikaria-dev

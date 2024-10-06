@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  repository: myapp
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+route:
+  enabled: true
+  host: myapp.apps.sandbox-m3.1530.p1.openshiftapps.com
