@@ -1,0 +1,57 @@
+---
+# Source: myapp/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: myapp
+---
+# Source: myapp/templates/deployment.yaml
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: myapp
+  namespace: adhikaria-dev
+spec:
+  replicas: 1
+  selector:
+    app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: "image-registry.openshift-image-registry.svc:5000/adhikaria-dev/myapp:latest"
+          ports:
+            - containerPort: 8080
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - myapp
+        from:
+          kind: ImageStreamTag
+          name: myapp:latest
+    - type: ConfigChange
+---
+# Source: myapp/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: myapp
+spec:
+  host: myapp.apps.sandbox-m3.1530.p1.openshiftapps.com
+  to:
+    kind: Service
+    name: myapp
+  port:
+    targetPort: 8080
