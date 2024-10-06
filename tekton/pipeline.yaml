@@ -4,12 +4,20 @@ metadata:
   name: myapp-pipeline
   namespace: adhikaria-dev
 spec:
+  workspaces:
+    - name: shared-workspace
   tasks:
     - name: build
       taskRef:
         name: build-task
+      workspaces:
+        - name: source
+          workspace: shared-workspace
     - name: deploy
       runAfter:
         - build
       taskRef:
         name: deploy-task
+      workspaces:
+        - name: source
+          workspace: shared-workspace

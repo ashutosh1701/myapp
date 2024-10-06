@@ -4,6 +4,8 @@ metadata:
   name: deploy-task
   namespace: adhikaria-dev
 spec:
+  workspaces:
+    - name: source
   steps:
     - name: deploy
       image: bitnami/kubectl:latest
