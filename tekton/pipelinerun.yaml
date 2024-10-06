@@ -9,4 +9,8 @@ spec:
   workspaces:
     - name: shared-workspace
       persistentVolumeClaim:
-        claimName: myapp-pvc
+        claimName: my-pvc
+  resources:
+    - name: git-source
+      resourceRef:
+        name: myapp-git

@@ -1,14 +1,14 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: build-task
+  name: rollback-task
   namespace: adhikaria-dev
 spec:
   workspaces:
     - name: source
   steps:
-    - name: trigger-build
-      image: 'openshift/origin-cli:latest'
+    - name: helm-rollback
+      image: 'alpine/helm:3.5.4'
       script: |
         cd $(workspaces.source.path)
-        oc start-build myapp -n adhikaria-dev --wait
+        helm rollback myapp 1 --namespace adhikaria-dev

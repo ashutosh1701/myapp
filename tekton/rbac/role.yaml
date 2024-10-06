@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: adhikaria-dev
+  name: tekton-pipeline-role
+rules:
+- apiGroups: ["tekton.dev"]
+  resources: ["pipelineresources"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]

@@ -6,18 +6,34 @@ metadata:
 spec:
   workspaces:
     - name: shared-workspace
+  resources:
+    - name: git-source
+      type: git
   tasks:
-    - name: build
+    - name: clone-repo
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      resources:
+        - name: git-source
+          resource: myapp-git
+    - name: build-task
       taskRef:
         name: build-task
       workspaces:
         - name: source
           workspace: shared-workspace
-    - name: deploy
-      runAfter:
-        - build
+    - name: deploy-task
       taskRef:
         name: deploy-task
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: rollback-task
+      taskRef:
+        name: rollback-task
       workspaces:
         - name: source
           workspace: shared-workspace

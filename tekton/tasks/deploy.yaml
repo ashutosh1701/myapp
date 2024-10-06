@@ -10,4 +10,5 @@ spec:
     - name: helm-deploy
       image: 'alpine/helm:3.5.4'
       script: |
-        helm upgrade --install myapp $(workspaces.source.path)/helm/myapp --namespace adhikaria-dev --set image.tag=latest
+        cd $(workspaces.source.path)
+        helm upgrade --install myapp ./helm/myapp --namespace adhikaria-dev --set image.tag=latest
